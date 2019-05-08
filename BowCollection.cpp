@@ -96,29 +96,15 @@ bool BowCollection::removeBow(unsigned int barcode) {
   // else returns false
 
     if (hT1.find(barcode) == hT1.end())
-        { } //go to next
-    else { hT1.erase(barcode);
-         return true; }
-
-        if (hT2.find(barcode) == hT2.end())
-             { } //go to next
-         else { hT2.erase(barcode);
-              return true; }
-
-              if (hT3.find(barcode) == hT3.end())
-                  { } //go to next
-              else { hT3.erase(barcode);
-                   return true; }
-
-                   if (hT4.find(barcode) == hT4.end())
-                       { } //go to next
-                   else { hT4.erase(barcode);
-                        return true; }
-
-                        if (hT5.find(barcode) == hT5.end())
-                            return false;
-                        else { hT5.erase(barcode);
-                             return true; }
+        { return false; }
+    else {
+      hT1.erase(barcode);
+      hT2.erase(barcode);
+      hT3.erase(barcode);
+      hT4.erase(barcode);
+      hT5.erase(barcode);
+      return true;
+       }
 
 }
 
@@ -154,6 +140,9 @@ unsigned int BowCollection::bestHashing() {
   balance = largest - smallest;
 
   // find balance of hT2
+smallest = hT2.bucket_size(0);
+largest = 0;
+
     for (unsigned i=0; i<10; ++i) { // i = index
       int size = hT2.bucket_size(i);
       if (size > largest)
@@ -169,6 +158,9 @@ unsigned int BowCollection::bestHashing() {
     }
 
       // find balance of hT3
+      smallest = hT3.bucket_size(0);
+      largest = 0;
+
         for (unsigned i=0; i<10; ++i) { // i = index
           int size = hT3.bucket_size(i);
           if (size > largest)
@@ -184,6 +176,9 @@ unsigned int BowCollection::bestHashing() {
         }
 
           // find balance of hT4
+          smallest = hT4.bucket_size(0);
+          largest = 0;
+
             for (unsigned i=0; i<10; ++i) { // i = index
               int size = hT4.bucket_size(i);
               if (size > largest)
@@ -199,6 +194,9 @@ unsigned int BowCollection::bestHashing() {
             }
 
               // find balance of hT5
+              smallest = hT5.bucket_size(0);
+              largest = 0;
+
                 for (unsigned i=0; i<10; ++i) { // i = index
                   int size = hT5.bucket_size(i);
                   if (size > largest)
