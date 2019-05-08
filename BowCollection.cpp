@@ -19,7 +19,7 @@ unsigned int hashfct1(unsigned int barcode) {
 // function to return the hash value based on the second digit
 unsigned int hashfct2(unsigned int barcode) {
   // TO BE COMPLETED
-  unsigned int d = barcode/10000;
+  unsigned int d = barcode/1000;
   d = d%10;
   return d;
 }
@@ -27,7 +27,7 @@ unsigned int hashfct2(unsigned int barcode) {
 // function to return the hash value based on the third digit
 unsigned int hashfct3(unsigned int barcode) {
   // TO BE COMPLETED
-  unsigned int d = barcode/10000;
+  unsigned int d = barcode/100;
   d = d%10;
   return d;
 }
@@ -35,7 +35,7 @@ unsigned int hashfct3(unsigned int barcode) {
 // function to return the hash value based on the fourth digit
 unsigned int hashfct4(unsigned int barcode) {
   // TO BE COMPLETED
-  unsigned int d = barcode/10000;
+  unsigned int d = barcode/10;
   d = d%10;
   return d;
 }
@@ -43,7 +43,7 @@ unsigned int hashfct4(unsigned int barcode) {
 // function to return the hash value based on the fifth digit
 unsigned int hashfct5(unsigned int barcode) {
   // TO BE COMPLETED
-  unsigned int d = barcode/10000;
+  unsigned int d = barcode/1;
   d = d%10;
   return d;
 }
@@ -79,13 +79,14 @@ void BowCollection::readTextfile(string filename) {
 void BowCollection::addBow(string bowColor, string bowShape, string bowTexture, unsigned int barcode) {
   // TO BE COMPLETED
   // function that adds the specified bow to Minnie's collection of bows (i.e., to all hash tables)
+  // key = barcode
   Bow newBow(bowColor, bowShape, bowTexture, barcode);
 
-  hT1.insert(barcode, newBow, hashfct1);
-  hT2.insert(bowColor, bowShape, bowTexture, barcode);
-  hT3.insert(bowColor, bowShape, bowTexture, barcode);
-  hT4.insert(bowColor, bowShape, bowTexture, barcode);
-  hT5.insert(bowColor, bowShape, bowTexture, barcode);
+  hT1[barcode] = newBow;
+  hT2[barcode] = newBow;
+  hT3[barcode] = newBow;
+  hT4[barcode] = newBow;
+  hT5[barcode] = newBow;
 }
 
 bool BowCollection::removeBow(unsigned int barcode) {
@@ -135,17 +136,84 @@ unsigned int BowCollection::bestHashing() {
   }
 	*/
 	// Then, calculate the lowest balance
-  int smallest = 1;
+  int smallest = hT1.bucket_size(0); //initialize with a real bucket value
   int balance = 0;
+  int balance_temp = 0;
+  int largest = 0;
+  int best_table = 1;
 
-/*
-  while (hT1.find(key) != hT1.end()) {
-    if key != 0
-      balance++;
-  }
-  */
+// find balance of hT1
+  for (unsigned i=0; i<10; ++i) { // i = index
+    int size = hT1.bucket_size(i);
+    if (size > largest)
+      largest = size;
+    if (size < smallest)
+      smallest = size;
+    }
 
-  return smallest;
+  balance = largest - smallest;
+
+  // find balance of hT2
+    for (unsigned i=0; i<10; ++i) { // i = index
+      int size = hT2.bucket_size(i);
+      if (size > largest)
+        largest = size;
+      if (size < smallest)
+        smallest = size;
+      }
+
+    balance_temp = largest - smallest;
+    if (balance_temp < balance) {
+      balance = balance_temp;
+      best_table = 2;
+    }
+
+      // find balance of hT3
+        for (unsigned i=0; i<10; ++i) { // i = index
+          int size = hT3.bucket_size(i);
+          if (size > largest)
+            largest = size;
+          if (size < smallest)
+            smallest = size;
+          }
+
+        balance_temp = largest - smallest;
+        if (balance_temp < balance) {
+          balance = balance_temp;
+          best_table = 3;
+        }
+
+          // find balance of hT4
+            for (unsigned i=0; i<10; ++i) { // i = index
+              int size = hT4.bucket_size(i);
+              if (size > largest)
+                largest = size;
+              if (size < smallest)
+                smallest = size;
+              }
+
+            balance_temp = largest - smallest;
+            if (balance_temp < balance) {
+              balance = balance_temp;
+              best_table = 4;
+            }
+
+              // find balance of hT5
+                for (unsigned i=0; i<10; ++i) { // i = index
+                  int size = hT5.bucket_size(i);
+                  if (size > largest)
+                    largest = size;
+                  if (size < smallest)
+                    smallest = size;
+                  }
+
+                balance_temp = largest - smallest;
+                if (balance_temp < balance) {
+                  balance = balance_temp;
+                  best_table = 5;
+                }
+
+  return best_table;
 
 }
 
