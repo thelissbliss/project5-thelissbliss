@@ -79,7 +79,9 @@ void BowCollection::readTextfile(string filename) {
 void BowCollection::addBow(string bowColor, string bowShape, string bowTexture, unsigned int barcode) {
   // TO BE COMPLETED
   // function that adds the specified bow to Minnie's collection of bows (i.e., to all hash tables)
-  hT1.insert(bowColor, bowShape, bowTexture, barcode);
+  Bow newBow(bowColor, bowShape, bowTexture, barcode);
+
+  hT1.insert(barcode, newBow, hashfct1);
   hT2.insert(bowColor, bowShape, bowTexture, barcode);
   hT3.insert(bowColor, bowShape, bowTexture, barcode);
   hT4.insert(bowColor, bowShape, bowTexture, barcode);
