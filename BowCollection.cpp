@@ -19,21 +19,33 @@ unsigned int hashfct1(unsigned int barcode) {
 // function to return the hash value based on the second digit
 unsigned int hashfct2(unsigned int barcode) {
   // TO BE COMPLETED
+  unsigned int d = barcode/10000;
+  d = d%10;
+  return d;
 }
 
 // function to return the hash value based on the third digit
 unsigned int hashfct3(unsigned int barcode) {
   // TO BE COMPLETED
+  unsigned int d = barcode/10000;
+  d = d%10;
+  return d;
 }
 
 // function to return the hash value based on the fourth digit
 unsigned int hashfct4(unsigned int barcode) {
   // TO BE COMPLETED
+  unsigned int d = barcode/10000;
+  d = d%10;
+  return d;
 }
 
 // function to return the hash value based on the fifth digit
 unsigned int hashfct5(unsigned int barcode) {
   // TO BE COMPLETED
+  unsigned int d = barcode/10000;
+  d = d%10;
+  return d;
 }
 
 // Constructor for struct Bow
@@ -67,7 +79,11 @@ void BowCollection::readTextfile(string filename) {
 void BowCollection::addBow(string bowColor, string bowShape, string bowTexture, unsigned int barcode) {
   // TO BE COMPLETED
   // function that adds the specified bow to Minnie's collection of bows (i.e., to all hash tables)
-
+  hT1.insert(bowColor, bowShape, bowTexture, barcode);
+  hT2.insert(bowColor, bowShape, bowTexture, barcode);
+  hT3.insert(bowColor, bowShape, bowTexture, barcode);
+  hT4.insert(bowColor, bowShape, bowTexture, barcode);
+  hT5.insert(bowColor, bowShape, bowTexture, barcode);
 }
 
 bool BowCollection::removeBow(unsigned int barcode) {
@@ -75,6 +91,31 @@ bool BowCollection::removeBow(unsigned int barcode) {
   // function that removes the bow specified by the barcode from the collection
   // if bow is found, then it is removed and the function returns true
   // else returns false
+
+    if (hT1.find(barcode) == hT1.end())
+        { } //go to next
+    else { hT1.erase(barcode);
+         return true; }
+
+        if (hT2.find(barcode) == hT2.end())
+             { } //go to next
+         else { hT2.erase(barcode);
+              return true; }
+
+              if (hT3.find(barcode) == hT3.end())
+                  { } //go to next
+              else { hT3.erase(barcode);
+                   return true; }
+
+                   if (hT4.find(barcode) == hT4.end())
+                       { } //go to next
+                   else { hT4.erase(barcode);
+                        return true; }
+
+                        if (hT5.find(barcode) == hT5.end())
+                            return false;
+                        else { hT5.erase(barcode);
+                             return true; }
 
 }
 
@@ -92,6 +133,17 @@ unsigned int BowCollection::bestHashing() {
   }
 	*/
 	// Then, calculate the lowest balance
+  int smallest = 1;
+  int balance = 0;
+
+/*
+  while (hT1.find(key) != hT1.end()) {
+    if key != 0
+      balance++;
+  }
+  */
+
+  return smallest;
 
 }
 
