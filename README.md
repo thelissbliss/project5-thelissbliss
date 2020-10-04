@@ -1,4 +1,8 @@
-# project5-skeleton
+# Minnie's Bows
 
-# Alyssa Bright
-# alyssabright@csu.fullerton.edu
+Verifies collection of Minnie's bows.
+Language: C++
+
+Credit:
+- Alyssa Bright
+- Project for coursework at CSUF
